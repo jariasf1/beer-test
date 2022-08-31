@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BeerSearchController extends AbstractController
+class BeerDetailController extends AbstractController
 {
-    #[Route('/search')]
-    public function __invoke(Request $request, BeerHandler $beerHandler): JsonResponse
+    #[Route('/detail/{id}')]
+    public function __invoke(Request $request, BeerHandler $beerHandler, int $id): JsonResponse
     {
-        $result = $beerHandler->search($request, ['q' => $request->get('q'), 'serializeContext' => ['id', 'name', 'description']]);
+        $result = $beerHandler->detail($request, ['id' => $id, 'serializeContext' => ['id', 'name', 'description', 'image', 'slogan', 'firstBreweb']]);
         return $this->json($result);
     }
 }

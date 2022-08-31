@@ -20,6 +20,7 @@ abstract class AggregateRoot
 
     private function getValue(AggregateRoot $object, string $functionName): mixed
     {
+
         if ('id' === $functionName || 'value' === $functionName) {
             return $object->$functionName();
         }
@@ -45,6 +46,7 @@ abstract class AggregateRoot
             'password',
             'record',
             'toArray',
+            'create'
         ]);
     }
 }

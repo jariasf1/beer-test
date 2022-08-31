@@ -15,18 +15,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class NormalizeBeerObject
 {
-
-    public function normalize(string $beers)
-    {
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-
-        $serializer = new Serializer($normalizers, $encoders);
-
-        return $serializer->deserialize($beers, Beer::class, 'json');
-    }
-
-    public function arrayNormalize(array $beers): array
+    public function normalize(array $beers): array
     {
         $beersObj = [];
         foreach ($beers as $beer) {
@@ -39,5 +28,20 @@ class NormalizeBeerObject
             $beersObj[] = Beer::create($id, $name, $description, $image, $slogan, $firstBrewed);
         }
         return $beersObj;
+    }
+
+    public function serializer(mixed $object, array $context = [])
+    {
+        $data = [];
+        foreach ($context as $item) {
+            if ($item === 'id')
+            {
+                $data[$item] = $object->$item();
+            } else {
+                $data[$item] = $object->$item()->value();
+            }
+        }
+
+        return $data;
     }
 }

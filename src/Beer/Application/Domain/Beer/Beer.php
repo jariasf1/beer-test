@@ -6,18 +6,14 @@ use App\Beer\Application\Domain\AggregateRoot;
 
 class Beer extends AggregateRoot
 {
-    private int $id;
-
     public function __construct(
-        BeerId $id,
+        private BeerId $id,
         private BeerName $name,
         private BeerDescription $description,
         private BeerImage $image,
         private BeerSlogan $slogan,
         private BeerFirstBreweb $firstBreweb
-    ) {
-        $this->id = $id->value();
-    }
+    ) {}
 
     public static function create(
         BeerId $id,
@@ -39,7 +35,7 @@ class Beer extends AggregateRoot
 
     public function id(): int
     {
-        return $this->id;
+        return $this->id->value();
     }
 
     public function name(): BeerName
