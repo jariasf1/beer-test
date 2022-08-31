@@ -16,3 +16,7 @@ Test de programación
 # Endpoints:
     /search?q=chicken
     /detail/2
+
+# Images responses:
+    /doc/endpoint-I.png
+    /doc/endpoint-II.png
